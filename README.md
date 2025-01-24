@@ -6,4 +6,4 @@
 1. Manejo de Transacciones
 1. Bases de Datos NoSQL (MongoDB)
 
-![Base de Datos](./image/imgdb.jpg)
+![Base de Datos](./Unidad1/image/imgdb.jpg)
