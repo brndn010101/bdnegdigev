@@ -117,3 +117,4 @@ ALTER table detalleorden
 add constraint fk_detalleorden_orden
 foreign key (ordenfk)
 references ordencompra (ordenid);
+
