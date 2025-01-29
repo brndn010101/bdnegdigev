@@ -53,6 +53,14 @@ day (OrderDate) as Dia, CustomerID as [ID Cliente], EmployeeID as [ID Empleado] 
 -- Operadores relacionales (>, <, =, <=, >=, != o <>) 
 SELECT * FROM Customers;
 
+-- FILAS DUPLICADAS
+SELECT * FROM Customers;
+
+-- Mostrar los paises donde se tienen clientes, mostrando el pais solamente
+SELECT distinct Country
+FROM Customers as Pais
+order by Country;
+
 -- Seleccionar el cliente BOLID
 
 SELECT CustomerID as [ID Cliente], CompanyName as [Nombre Compañia], City as Ciudad, Country as Pais FROM Customers
@@ -107,3 +115,40 @@ RequiredDate as FechaSolicitud,
 ShippedDate as FechaEntrega,
 CustomerID as [Entregado a] FROM Orders
 WHERE year(OrderDate) = 1996;
+
+
+-- Mostrar todas las órdenes de compra donde la cantidad de productos comprados
+-- Sea mayor a 5
+SELECT OrderID
+FROM [Order Details]
+WHERE Quantity >= 40;
+
+-- Mostrar el nombre completo del emleado, su número de empleado, fecha de nacimiento
+-- ciudad y fecha de contratación que fueron contratados después de 1993
+SELECT EmployeeID as ID, FirstName as Nombre, LastName as Apellido, EmployeeID as ID, BirthDate as 'Fecha de Nacimiento', HireDate as [Fecha de Contratación]
+FROM Employees
+WHERE year (HireDate) > 1993;
+
+-- CONCATENACIÓN CALCULADA
+-- Mostrar el nombre completo del emleado, su número de empleado, fecha de nacimiento
+-- ciudad y fecha de contratación que fueron contratados después de 1993
+SELECT EmployeeID as ID, (FirstName + ' ' + LastName) as [Nombre Completo], EmployeeID as ID, BirthDate as 'Fecha de Nacimiento', HireDate as [Fecha de Contratación]
+FROM Employees
+WHERE year (HireDate) > 1993;
+
+-- CONCATENACIÓN TRANSACT 
+-- Mostrar el nombre completo del emleado, su número de empleado, fecha de nacimiento
+-- ciudad y fecha de contratación que fueron contratados después de 1993
+SELECT EmployeeID as ID, Concat (FirstName, ' ', LastName, ' - ', Title) as [Nombre Completo - Cargo], EmployeeID as ID, BirthDate as 'Fecha de Nacimiento', HireDate as [Fecha de Contratación]
+FROM Employees
+WHERE year (HireDate) > 1993;
+
+-- Mostrar los empleados que no son dirigidos por el empleado o jefe 2
+SELECT EmployeeID as ID, Concat (FirstName, ' ', LastName, ' - ', Title) as [Nombre Completo - Cargo], EmployeeID as ID, BirthDate as 'Fecha de Nacimiento', HireDate as [Fecha de Contratación], ReportsTo as Jefe
+FROM Employees
+WHERE ReportsTo != 2;
+
+-- Mostrar los empleados que no tengan jefe
+SELECT EmployeeID as ID, Concat (FirstName, ' ', LastName, ' - ', Title) as [Nombre Completo - Cargo], EmployeeID as ID, BirthDate as 'Fecha de Nacimiento', HireDate as [Fecha de Contratación], ReportsTo as Jefe
+FROM Employees
+WHERE ReportsTo is null;
