@@ -230,3 +230,33 @@ SELECT * FROM Orders;
 SELECT ShipVia, Freight, ShipCountry
 FROM Orders
 WHERE ShipCountry = 'Brazil' AND Freight >=100 and ShipVia != 1;
+
+-- Seleccionar Empleados que No viven en Londes o Seattle
+-- Y que fueron contratados despues de 1995
+
+SELECT (FirstName + ' ' + LastName) as Nombre, City, HireDate
+FROM Employees
+WHERE City != 'London' AND City != 'Seattle' AND YEAR(HireDate) >= 1992;
+
+-- CLAUSULA IN (OR)
+-- Seleccionar Prodcutos con categría 1,3 o 5
+SELECT ProductName, CategoryID, UnitPrice
+FROM Products
+WHERE CategoryID = 1 OR CategoryID = 3 OR CategoryID = 5;
+
+SELECT ProductName, CategoryID, UnitPrice
+FROM Products
+WHERE CategoryID IN (1, 3, 5);
+
+-- Seleccionar todas las ordenes dela region RJ, Tachira y que no
+-- tengan region asignada
+SELECT OrderID, OrderDate ,ShipRegion
+FROM Orders
+WHERE ShipRegion IN ('RJ', 'Táchira') OR ShipRegion is null;
+
+-- Seleccionar ordenes con cantidades de 12, 9 y 40 y descuento de 0.15 y 0.50
+SELECT OrderID, Quantity, Discount
+FROM [Order Details]
+WHERE Quantity IN (9, 12,40) AND Discount IN (0.15, 0.05);
+
+-- CLAUSULA BETWEEN
