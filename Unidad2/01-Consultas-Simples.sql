@@ -259,4 +259,101 @@ SELECT OrderID, Quantity, Discount
 FROM [Order Details]
 WHERE Quantity IN (9, 12,40) AND Discount IN (0.15, 0.05);
 
--- CLAUSULA BETWEEN
+-- CLAUSULA BETWEEN (Siempre va en el WHERE)
+-- BETWEEN (Valor inicial) (Valor final)
+
+-- Mostrar los productos con precio entre 10 y 50
+
+SELECT ProductName, UnitPrice
+FROM Products
+WHERE UnitPrice BETWEEN 10 AND 50;
+
+-- Seleccionar todos los pedidos realizados entre el 01 de Enero y el 30 de Junio de 1997
+
+SELECT CustomerID, OrderDate
+FROM Orders
+WHERE OrderDate BETWEEN ('01-01-1997') AND ('30-06-1997');
+
+-- Seleccionar todos los empleados contratados entre 1990 y 1995 que trabajan en Londres
+SELECT FirstName, HireDate, City
+FROM Employees
+WHERE HireDate BETWEEN ('01-01-1990') AND ('31-12-1995') AND City = 'London';
+
+SELECT FirstName, HireDate, City
+FROM Employees
+WHERE year(HireDate) BETWEEN 1992 AND 1994 AND City = 'London';
+
+SELECT FirstName, HireDate, City
+FROM Employees
+WHERE year(HireDate) >= 1992 AND YEAR(HireDate)<=1994 AND City = 'London';
+
+-- Pedidos con flete entre 50 y 200 enviados a alemania y a francia
+SELECT OrderID as ID, OrderDate as 'Fecha de Orden', RequiredDate as [Fecha de Entrega], Freight as Peso, ShipCountry as [Pais de Entrega]
+FROM Orders
+WHERE Freight BETWEEN 50 AND 200 AND ShipCountry IN ('France', 'Germany');
+
+SELECT OrderID as ID, OrderDate as 'Fecha de Orden', RequiredDate as [Fecha de Entrega], Freight as Peso, ShipCountry as [Pais de Entrega]
+FROM Orders
+WHERE Freight > 50 AND Freight < 200 AND (ShipCountry = 'France' or ShipCountry = 'Germany');
+
+-- Seleccionar todos los produtos que tengan un precio entre 5 y 20
+-- y que sean de la categoría 1,2,3
+SELECT ProductName, UnitPrice, CategoryID
+FROM Products
+WHERE UnitPrice BETWEEN 5 AND 20 AND (CategoryID IN (1, 2, 3));
+
+SELECT ProductName, UnitPrice, CategoryID
+FROM Products
+WHERE UnitPrice >= 5 AND UnitPrice <= 20 AND (CategoryID = 1 OR CategoryID = 2 OR CategoryID = 3);
+
+-- Seleccionar todos los produtos que tengan un precio entre 5 y 20
+-- o que sean de la categoría 1,2,3
+
+SELECT ProductName, UnitPrice, CategoryID
+FROM Products
+WHERE UnitPrice BETWEEN 5 AND 20 OR (CategoryID IN (1, 2, 3));
+
+SELECT ProductName, UnitPrice, CategoryID
+FROM Products
+WHERE UnitPrice >= 5 AND UnitPrice <= 20 OR (CategoryID = 1 OR CategoryID = 2 OR CategoryID = 3);
+
+-- Seleccionar los empleados con numero de trabajador entre 3 y 7
+-- y que no trabajan en londres y seattle
+SELECT * FROM Employees
+
+SELECT (FirstName + ' ' + LastName) as [Nombre Completo], EmployeeID as [Numero de Empleado], City as [Ciudad]
+FROM Employees
+WHERE EmployeeID BETWEEN 3 AND 7 AND NOT City IN ('London', 'Seattle');
+
+SELECT (FirstName + ' ' + LastName) as [Nombre Completo], EmployeeID as [Numero de Empleado], City as [Ciudad]
+FROM Employees
+WHERE EmployeeID >= 3 AND EmployeeID <=7 AND (City <> 'Seattle' AND City <> 'London');
+
+-- CLAUSULA LIKE
+-- Patrones
+-- 1) % (porcentaje) - representa 0 o más caracteres en el patrón de búsqueda
+-- 2) _ (guion bajo) - representa exactamente un caracter en el patrón de búsqueda
+-- 3) [] (corchetes) - se utiliza para definir un conjunto de caracteres buscando cualquiera de ellos en la posición específica
+-- 4) [^] (Asento circunflejo) - Se utiliza para buscar caracteres que no están dentro del conjunto específico
+
+-- Buscar los productos que comienzan con "Cha"
+
+SELECT ProductName, UnitPrice
+FROM Products
+WHERE ProductName LIKE 'Cha%' AND UnitPrice = 18;
+
+-- Buscar todos los productos que terminen con E
+SELECT ProductName, UnitPrice
+FROM Products
+WHERE ProductName LIKE '%E';
+
+-- Seleccionar todos los clientes cuyo nombre, empresa contiene la palabra "co" en cualquier posición
+
+SELECT CompanyName
+FROM Customers
+WHERE CompanyName LIKE '%co%';
+
+-- Seleccionar los empleados cuyo nombre comience con "A" y tenga exactamente 5 caracteres
+SELECT FirstName
+FROM Employees
+WHERE FirstName LIKE 'A%____';
