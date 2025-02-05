@@ -357,3 +357,81 @@ WHERE CompanyName LIKE '%co%';
 SELECT FirstName
 FROM Employees
 WHERE FirstName LIKE 'A%____';
+
+
+-- Seleccionar los productos que comeiencen con A o B
+
+SELECT ProductID, ProductName
+FROM Products
+WHERE ProductName LIKE '[AB]%';
+
+SELECT ProductID, ProductName
+FROM Products
+WHERE ProductName LIKE '[A-M]%';
+
+-- Seleccionar todos los productos que no comiencen con A O B
+SELECT ProductID, ProductName
+FROM Products
+WHERE ProductName LIKE '[^AB]%';
+
+SELECT ProductID, ProductName
+FROM Products
+WHERE ProductName NOT LIKE '[AB]%';
+
+-- Seleccionar todos los productos donde nombre tenga la A pero no la E
+SELECT ProductID, ProductName
+FROM Products
+WHERE ProductName LIKE 'A%' AND ProductName LIKE '%[^E]%';
+
+SELECT ProductID, ProductName
+FROM Products
+WHERE ProductName LIKE 'A[^E]%'
+
+
+-- Calcular Order By
+SELECT ProductID, ProductName, UnitPrice, UnitsInStock
+FROM Products
+ORDER BY UnitPrice asc;
+
+SELECT ProductID, ProductName, UnitPrice, UnitsInStock
+FROM Products
+ORDER BY UnitPrice desc;
+
+SELECT ProductID, ProductName, UnitPrice, UnitsInStock
+FROM Products
+ORDER BY 3 desc;
+
+SELECT ProductID, ProductName, UnitPrice as 'Precio', UnitsInStock
+FROM Products
+ORDER BY 'Precio' desc;
+
+-- Seleccionar los clientes ordenados por el país y dentro por ciudad
+SELECT CompanyName, City, Country
+FROM Customers
+WHERE Country = 'Brazil'
+ORDER BY Country + City ASC;
+
+SELECT CompanyName, City, Country
+FROM Customers
+WHERE Country = 'Brazil'
+ORDER BY Country ASC, City ASC;
+
+SELECT CompanyName, City, Country
+FROM Customers
+WHERE Country IN ('Brazil', 'Germany')
+ORDER BY Country ASC, City ASC;
+
+SELECT CompanyName, City, Country
+FROM Customers
+WHERE Country IN ('Brazil', 'Germany') AND Region is not null
+ORDER BY Country ASC, City ASC;
+
+SELECT CompanyName, City, Country
+FROM Customers
+WHERE Country NOT IN ('Brazil', 'Germany') AND Region is not null
+ORDER BY Country ASC, City ASC;
+
+SELECT CompanyName, City, Country
+FROM Customers
+WHERE Country NOT IN ('Brazil', 'Germany') AND Region is not null
+ORDER BY Country, City ASC;
