@@ -56,3 +56,121 @@ FROM [Order Details]
 INNER JOIN Orders
 ON [Order Details].OrderID = Orders.OrderID
 WHERE OrderDate BETWEEN '01-07-1996' AND'30-10-1996';
+
+
+-- CONSULTAS BÁSICAS CON INNER JOIN
+-- Obtener los nombres de los clientes y los paises a los que se
+-- enviaron sus pedidos
+
+SELECT Customers.CompanyName, Orders.CustomerID,Orders.ShipCountry
+FROM Customers
+INNER JOIN Orders
+ON Customers.CustomerID = Orders.CustomerID
+ORDER BY Orders.ShipCountry asc;
+
+--Obtener los productos y sus respectivos proveedores
+SELECT  Products.ProductName, Suppliers.CompanyName
+FROM Products
+INNER JOIN Suppliers
+ON Products.SupplierID = Suppliers.SupplierID;
+
+
+--Obtener los pedidos y los empleados que los gestionaron
+SELECT Orders.OrderID, FirstName, LastName
+FROM Employees
+INNER JOIN Orders
+ON Employees.EmployeeID = Orders.EmployeeID;
+
+-- Listar los productos junto con sus precios y la categoría a la
+-- que pertenecen
+
+SELECT Products.ProductName, Categories.CategoryID, Categories.CategoryName
+FROM Categories
+INNER JOIN Products
+ON Products.CategoryID = Categories.CategoryID;
+
+-- Obtener el nombre del cliente, el número de orden y la fecha de orden
+SELECT Customers.CompanyName, Orders.OrderID, Orders.OrderDate
+FROM Customers
+INNER JOIN Orders
+ON Orders.CustomerID = Customers.CustomerID;
+
+-- Listar las ordenes mostrando el numero de orden, el nombre del producto
+-- y la cantidad que se vendio
+SELECT [Order Details].OrderID, Products.ProductName, (([Order Details].UnitPrice*UnitsInStock)-([Order Details].UnitPrice*UnitsInStock*Discount)) as Importe
+FROM Products
+INNER JOIN [Order Details]
+ON [Order Details].ProductID = Products.ProductID;
+
+SELECT [Order Details].OrderID, Products.ProductName, [Order Details].Quantity
+FROM Products
+INNER JOIN [Order Details]
+ON [Order Details].ProductID = Products.ProductID;
+
+SELECT [Order Details].OrderID, Products.ProductName, [Order Details].Quantity
+FROM Products
+INNER JOIN [Order Details]
+ON [Order Details].ProductID = Products.ProductID
+WHERE [Order Details].OrderID = 11031;
+
+SELECT [Order Details].OrderID, COUNT (*) as Quantity
+FROM Products
+INNER JOIN [Order Details]
+ON [Order Details].ProductID = Products.ProductID
+WHERE [Order Details].OrderID = 11031
+GROUP BY [Order Details].OrderID;
+
+SELECT [Order Details].OrderID, Products.ProductName, ([Order Details].UnitPrice*Quantity) as Importe
+FROM Products
+INNER JOIN [Order Details]
+ON [Order Details].ProductID = Products.ProductID;
+
+-- Obtener los Empleados y sus Respectivos Jefes
+SELECT CONCAT ((E1.FirstName), ' ',(E1.LastName)) as Nombre, E2.ReportsTo
+FROM Employees as E1
+INNER JOIN Employees as E2
+ON E1.EmployeeID = E2.EmployeeID;
+
+SELECT CONCAT ((E1.FirstName), ' ',(E1.LastName)) as Nombre, CONCAT ((E2.FirstName), ' ',(E2.LastName)) as Nombre
+FROM Employees as E1
+INNER JOIN Employees as E2
+ON E1.ReportsTo = E2.EmployeeID;
+
+SELECT CONCAT ((Employees.FirstName), ' ',(Employees.LastName)) as Nombre, Employees.ReportsTo
+FROM Employees;
+
+-- Listar los pedidos y el nombre de la empresa de transporte utilizada
+
+SELECT Shippers.CompanyName, Orders.OrderID
+FROM Orders
+INNER JOIN Shippers
+ON Shippers.ShipperID = Orders.ShipVia;
+
+-- Obetener la canditdad total de productos vendidos por categoria
+SELECT SUM (Quantity) as Cantidad
+FROM [Order Details];
+
+SELECT Categories.CategoryName, SUM (Quantity) as [Productos Vendidos]
+FROM Categories
+INNER JOIN Products
+ON Categories.CategoryID = Products.CategoryID
+INNER JOIN [Order Details]
+ON [Order Details].ProductID = Products.ProductID
+GROUP BY Categories.CategoryName;
+
+-- Obtener el total de ventas por empleado
+
+SELECT Employees.EmployeeID, CONCAT (Employees.FirstName,' ',Employees.LastName) as Empleado, ([Order Details].UnitPrice*Quantity) as [Total Vendido]
+FROM [Order Details]
+INNER JOIN Orders
+ON [Order Details].OrderID = Orders.OrderID
+INNER JOIN Employees
+ON Employees.EmployeeID = Orders.EmployeeID;
+
+SELECT Employees.FirstName, SUM (([Order Details].UnitPrice*[Order Details].Quantity)-([Order Details].UnitPrice*[Order Details].Quantity*[Order Details].Discount)) as Total
+FROM [Order Details]
+INNER JOIN Orders
+ON [Order Details].OrderID = Orders.OrderID
+INNER JOIN Employees
+ON Employees.EmployeeID = Orders.EmployeeID
+GROUP BY Employees.FirstName;
