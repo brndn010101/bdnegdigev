@@ -174,3 +174,126 @@ ON [Order Details].OrderID = Orders.OrderID
 INNER JOIN Employees
 ON Employees.EmployeeID = Orders.EmployeeID
 GROUP BY Employees.FirstName;
+
+-- Listar los clientes y la cantidad de pedidos que han realiado
+SELECT Customers.CompanyName, SUM ([Order Details].Quantity) as Quantity
+FROM Customers
+INNER JOIN Orders
+ON Customers.CustomerID = Orders.CustomerID
+INNER JOIN [Order Details]
+ON [Order Details].OrderID = Orders.OrderID
+GROUP BY Customers.CompanyName
+ORDER BY Customers.CompanyName asc;
+
+SELECT Customers.CompanyName, COUNT (*) as Quantity
+FROM Customers
+INNER JOIN Orders
+ON Customers.CustomerID = Orders.CustomerID
+GROUP BY Customers.CompanyName
+ORDER BY Customers.CompanyName asc;
+
+-- Obtener los empleados que han gestionado pedidos enviados a Alemania
+SELECT CONCAT (Employees.FirstName, ' ', Employees.LastName) as Name, Orders.ShipCountry, Orders.OrderID
+FROM Employees
+INNER JOIN Orders
+ON Employees.EmployeeID = Orders.EmployeeID
+WHERE Orders.ShipCountry = 'Germany';
+
+SELECT DISTINCT CONCAT (Employees.FirstName, ' ', Employees.LastName) as Name, Orders.ShipCountry
+FROM Employees
+INNER JOIN Orders
+ON Employees.EmployeeID = Orders.EmployeeID
+WHERE Orders.ShipCountry = 'Germany';
+
+-- Listar los prouctos junto con el nombre del proveedor y el país de origen
+
+SELECT Products.ProductName, Suppliers.CompanyName, Suppliers.Country
+FROM Products
+INNER JOIN Suppliers
+ON Products.SupplierID = Suppliers.SupplierID;
+
+-- Obtener los pedidos agrupados por pais de envio
+SELECT Orders.ShipCountry, SUM([Order Details].Quantity) as Quantity
+FROM [Order Details]
+INNER JOIN Orders
+ON [Order Details].OrderID = Orders.OrderID
+GROUP BY Orders.ShipCountry;
+
+SELECT ShipCountry, COUNT (OrderID) as Orders
+FROM Orders
+GROUP BY ShipCountry;
+
+-- Obtener los empleados y la cantidad de territorios en los que trabaja
+SELECT Employees.FirstName, Territories.TerritoryDescription
+FROM Employees
+INNER JOIN EmployeeTerritories
+ON Employees.EmployeeID = EmployeeTerritories.EmployeeID
+INNER JOIN Territories 
+ON EmployeeTerritories.TerritoryID = Territories.TerritoryID;
+
+SELECT CONCAT (Employees.FirstName, ' ', Employees.LastName) as [Name], COUNT (Territories.TerritoryID) as Territories
+FROM Employees
+INNER JOIN EmployeeTerritories
+ON Employees.EmployeeID = EmployeeTerritories.EmployeeID
+INNER JOIN Territories 
+ON EmployeeTerritories.TerritoryID = Territories.TerritoryID
+GROUP BY CONCAT (Employees.FirstName, ' ', Employees.LastName);
+
+SELECT CONCAT (Employees.FirstName, ' ', Employees.LastName) as [Name], Territories.TerritoryDescription,
+COUNT (Territories.TerritoryID) as Territories
+FROM Employees
+INNER JOIN EmployeeTerritories
+ON Employees.EmployeeID = EmployeeTerritories.EmployeeID
+INNER JOIN Territories 
+ON EmployeeTerritories.TerritoryID = Territories.TerritoryID
+GROUP BY CONCAT (Employees.FirstName, ' ', Employees.LastName), Territories.TerritoryDescription;
+
+-- Listar las categorias y la cantidad de productos que contienen
+SELECT Categories.CategoryName, SUM (Products.UnitsInStock) as Quantity
+FROM Products
+INNER JOIN Categories
+ON Products.CategoryID = Categories.CategoryID
+GROUP BY Categories.CategoryName;
+
+SELECT Categories.CategoryName, COUNT (Products.ProductID) as Quantity
+FROM Products
+INNER JOIN Categories
+ON Products.CategoryID = Categories.CategoryID
+GROUP BY Categories.CategoryName
+ORDER BY 1 asc;
+
+-- Obtener la cantidad total de productos vendidos por proveedor
+SELECT Suppliers.CompanyName, SUM ([Order Details].Quantity*[Order Details].UnitPrice) as [Cantidad Vendida]
+FROM Products
+INNER JOIN Suppliers
+ON Suppliers.SupplierID = Products.SupplierID
+INNER JOIN [Order Details]
+ON [Order Details].ProductID = Products.ProductID
+GROUP BY Suppliers.CompanyName;
+
+SELECT Suppliers.CompanyName, SUM ([Order Details].Quantity) as [Cantidad Vendida]
+FROM Products
+INNER JOIN Suppliers
+ON Suppliers.SupplierID = Products.SupplierID
+INNER JOIN [Order Details]
+ON [Order Details].ProductID = Products.ProductID
+GROUP BY Suppliers.CompanyName;
+
+SELECT Suppliers.CompanyName, COUNT (Orders.OrderID) as [Cantidad Vendida]
+FROM Products
+INNER JOIN Suppliers
+ON Suppliers.SupplierID = Products.SupplierID
+INNER JOIN [Order Details]
+ON [Order Details].ProductID = Products.ProductID
+INNER JOIN Orders
+ON Orders.OrderID = [Order Details].OrderID
+GROUP BY Suppliers.CompanyName;
+
+-- Obtener la cantidad de pedidos enviados por cada empresa de transporte
+SELECT Shippers.CompanyName, COUNT (Orders.OrderID) as [Cantidad Pedidos Enviados]
+FROM Orders
+INNER JOIN Shippers
+ON Shippers.ShipperID = Orders.ShipVia
+GROUP BY Shippers.CompanyName;
+
+-- Consultas avanzadas
