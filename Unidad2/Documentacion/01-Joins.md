@@ -1,6 +1,11 @@
+#INNER JOINS
+
+![Inner Join](../img/inner%20join.jpg)
+
+``` sql
 USE Northwind;
 
--- Seleccionar todas la categorías y productos
+-- Seleccionar todas la categorï¿½as y productos
 SELECT *
 FROM Categories
 INNER JOIN Products
@@ -17,8 +22,8 @@ FROM Categories as C
 INNER JOIN Products as P
 ON C.CategoryID = P.CategoryID;
 
--- Seleccionar los productos de la categoría Beverage y Condiments donde
--- la existencia esté entre 18 y 30
+-- Seleccionar los productos de la categorï¿½a Beverage y Condiments donde
+-- la existencia estï¿½ entre 18 y 30
 
 SELECT C.CategoryID as [Numero de Categorias], CategoryName as 'Nombre Categoria',
 ProductName as 'Nombre del Producto', UnitsInStock as Existencia, UnitPrice as Precio
@@ -58,7 +63,7 @@ ON [Order Details].OrderID = Orders.OrderID
 WHERE OrderDate BETWEEN '01-07-1996' AND'30-10-1996';
 
 
--- CONSULTAS BÁSICAS CON INNER JOIN
+-- CONSULTAS Bï¿½SICAS CON INNER JOIN
 -- Obtener los nombres de los clientes y los paises a los que se
 -- enviaron sus pedidos
 
@@ -81,7 +86,7 @@ FROM Employees
 INNER JOIN Orders
 ON Employees.EmployeeID = Orders.EmployeeID;
 
--- Listar los productos junto con sus precios y la categoría a la
+-- Listar los productos junto con sus precios y la categorï¿½a a la
 -- que pertenecen
 
 SELECT Products.ProductName, Categories.CategoryID, Categories.CategoryName
@@ -89,7 +94,7 @@ FROM Categories
 INNER JOIN Products
 ON Products.CategoryID = Categories.CategoryID;
 
--- Obtener el nombre del cliente, el número de orden y la fecha de orden
+-- Obtener el nombre del cliente, el nï¿½mero de orden y la fecha de orden
 SELECT Customers.CompanyName, Orders.OrderID, Orders.OrderDate
 FROM Customers
 INNER JOIN Orders
@@ -205,7 +210,7 @@ INNER JOIN Orders
 ON Employees.EmployeeID = Orders.EmployeeID
 WHERE Orders.ShipCountry = 'Germany';
 
--- Listar los prouctos junto con el nombre del proveedor y el país de origen
+-- Listar los prouctos junto con el nombre del proveedor y el paï¿½s de origen
 
 SELECT Products.ProductName, Suppliers.CompanyName, Suppliers.Country
 FROM Products
@@ -302,7 +307,7 @@ GROUP BY Shippers.CompanyName;
 
 -- Obtener los clientes que han realizado pedidos con mas de un producto
 
-SELECT COUNT ([Order Details].ProductID) as [Número de Órdenes], Customers.CompanyName
+SELECT COUNT ([Order Details].ProductID) as [Nï¿½mero de ï¿½rdenes], Customers.CompanyName
 FROM Customers
 INNER JOIN Orders
 ON Customers.CustomerID = Orders.CustomerID
@@ -320,8 +325,8 @@ ON Orders.OrderID = [Order Details].OrderID
 GROUP BY Customers.CompanyName;
 
 -- Listar los empleados con la cantidad total de pedidos que han gestionado
--- y a qué clientes les han vendido agrupándolos por nombre completo
--- y dentro de este nombre por cliente ordenándolos por la cantidad mayor de pedidos
+-- y a quï¿½ clientes les han vendido agrupï¿½ndolos por nombre completo
+-- y dentro de este nombre por cliente ordenï¿½ndolos por la cantidad mayor de pedidos
 SELECT COUNT(Orders.OrderID) as [Total Pedidos], Customers.CompanyName
 FROM Customers
 INNER JOIN Orders
@@ -340,7 +345,7 @@ ON Orders.EmployeeID = Employees.EmployeeID
 GROUP BY Customers.CompanyName
 ORDER BY [Total Pedidos] ASC;
 
-SELECT CONCAT(Employees.FirstName, ' ', Employees.LastName) as [Nombre], COUNT (Orders.OrderID) as [Número de Órdenes]
+SELECT CONCAT(Employees.FirstName, ' ', Employees.LastName) as [Nombre], COUNT (Orders.OrderID) as [Nï¿½mero de ï¿½rdenes]
 FROM Orders
 INNER JOIN Employees
 ON Employees.EmployeeID = Orders.EmployeeID
@@ -349,7 +354,7 @@ ON Orders.CustomerID = Customers.CustomerID
 GROUP BY Employees.FirstName, Employees.LastName, Customers.CompanyName
 ORDER BY [Nombre] asc;
 
-SELECT CONCAT(Employees.FirstName, ' ', Employees.LastName) as [Nombre], COUNT (Orders.OrderID) as [Número de Órdenes], Customers.CompanyName
+SELECT CONCAT(Employees.FirstName, ' ', Employees.LastName) as [Nombre], COUNT (Orders.OrderID) as [Nï¿½mero de ï¿½rdenes], Customers.CompanyName
 FROM Orders
 INNER JOIN Employees
 ON Employees.EmployeeID = Orders.EmployeeID
@@ -358,7 +363,7 @@ ON Orders.CustomerID = Customers.CustomerID
 GROUP BY Employees.FirstName, Employees.LastName, Customers.CompanyName
 ORDER BY [Nombre] asc, Customers.CompanyName;
 
--- Listar las categorías con el total de ingresos generados por sus productos
+-- Listar las categorï¿½as con el total de ingresos generados por sus productos
 SELECT Categories.CategoryName, CONCAT ('$ ', SUM (Products.UnitsInStock*Products.UnitPrice)) as [Total deIngresos]
 FROM Categories
 INNER JOIN Products
@@ -425,7 +430,7 @@ ON Orders.OrderID = [Order Details].OrderID
 WHERE Orders.OrderDate BETWEEN '01-01-1997' AND '30-06-1997'
 GROUP BY Orders.OrderDate;
 
--- Listar los productos con las categorías Beverages, Seafood, Confections
+-- Listar los productos con las categorï¿½as Beverages, Seafood, Confections
 SELECT Categories.CategoryName, Products.ProductName
 FROM Categories
 INNER JOIN Products
@@ -476,3 +481,4 @@ ORDER BY [Total] ASC;
 --FULL JOIN
 
 --CROSS JOIN
+```
