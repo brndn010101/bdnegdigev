@@ -373,6 +373,7 @@ WHERE ProductName LIKE '[A-M]%';
 SELECT ProductID, ProductName
 FROM Products
 WHERE ProductName LIKE '[^AB]%';
+USE Northwind
 
 SELECT ProductID, ProductName
 FROM Products
