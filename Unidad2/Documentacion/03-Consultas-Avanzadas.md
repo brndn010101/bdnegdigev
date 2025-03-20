@@ -1,8 +1,6 @@
-# 01 - INNER JOINS
+# Consultas Avanzadas
 
-![Inner Join](../img/inner%20join.jpg)
-
-``` sql
+```sql
 USE Northwind;
 
 -- Seleccionar todas la categor�as y productos
@@ -422,6 +420,7 @@ INNER JOIN [Order Details]
 ON Orders.OrderID = [Order Details].OrderID
 WHERE OrderDate BETWEEN '01-01-1997' AND '30-06-1997'
 GROUP BY Orders.OrderDate;
+USE Northwind;
 --[]
 SELECT Orders.OrderDate, SUM([Order Details].Quantity*[Order Details].UnitPrice) as [Total]
 FROM Orders

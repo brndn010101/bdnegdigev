@@ -1,6 +1,6 @@
-# Ejercicio de pedidos con Store Procedures
+# 09 - Ejercicio de pedidos con Store Procedures
 
-- Realizar un pedido, validar que el pedido no exista, validar que el cliente, el empleado y producto exista, validar que la cantidad a vender tenga suficiente stock, insertar el pedido y calcular el importe (multiplicando el precio del producto por cantidad vendida). Actualizar el stock del producto(restando el stock menos la cantidad vendida)
+Realizar un pedido, validar que el pedido no exista, validar que el cliente, el empleado y producto exista, validar que la cantidad a vender tenga suficiente stock, insertar el pedido y calcular el importe (multiplicando el precio del producto por cantidad vendida). Actualizar el stock del producto(restando el stock menos la cantidad vendida)
 
 ```sql
 use BDEJEMPLO2
