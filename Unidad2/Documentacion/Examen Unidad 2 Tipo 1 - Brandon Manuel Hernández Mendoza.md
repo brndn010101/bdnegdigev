@@ -1,3 +1,6 @@
+# Examen 2 Unidad 2 Tipo 1
+
+```sql
 USE Northwind
 --Ejercicio 1
 CREATE OR ALTER VIEW V_pedidosCE
@@ -48,7 +51,7 @@ BEGIN
 			       WHERE CustomerID = @customerID)
 	BEGIN
 		PRINT 'El cliente no existe'
-		RETURN 1;
+		RETURN -1;
 	END
 
 	IF NOT EXISTS (SELECT 1
@@ -61,7 +64,7 @@ BEGIN
 
 	IF @orderDate > @requiredDate
 	BEGIN
-		PRINT 'Fecha de entrega no válida'
+		PRINT 'Fecha de entrega no vï¿½lida'
 		RETURN -3;
 	END
 
@@ -88,3 +91,4 @@ EXECUTE SP_RegistrarNuevoPedido @customerID = 'ALFKI', @employeeID = 1, @orderDa
 
 
 SELECT GETDATE()
+```

@@ -48,7 +48,7 @@ BEGIN
 			       WHERE CustomerID = @customerID)
 	BEGIN
 		PRINT 'El cliente no existe'
-		RETURN
+		RETURN -1;
 	END
 
 	IF NOT EXISTS (SELECT 1
@@ -56,21 +56,35 @@ BEGIN
 			       WHERE EmployeeID = @employeeID)
 	BEGIN
 		PRINT 'El empleado no existe'
-		RETURN
+		RETURN -2
 	END
 
+	IF @orderDate > @requiredDate
+	BEGIN
+		PRINT 'Fecha de entrega no válida'
+		RETURN -3;
+	END
 
 	BEGIN TRY
-		INSERT INTO Orders
+		INSERT INTO Orders (CustomerID, EmployeeID, OrderDate, RequiredDate, ShipVia, Freight)
 		VALUES (@customerID, @employeeID, @orderDate, @requiredDate, @ship, @freight)
 	END TRY
 
 
 	BEGIN CATCH
 		PRINT 'Error al ingresar pedido'
-		RETURN
+		RETURN -4;
 	END CATCH
 
 END
 
-EXECUTE SP_RegistrarNuevoPedido @customerID = 'ALFKI', @employeeID = 1, @orderDate = '23-01-2014', @requiredDate = '23-01-2014', @ship = 1, @freight = 40
+SELECT *
+FROM Customers
+
+SELECT *
+FROM Employees
+
+EXECUTE SP_RegistrarNuevoPedido @customerID = 'ALFKI', @employeeID = 1, @orderDate = '2025-03-20', @requiredDate = '23-01-2014', @ship = 1, @freight = 40
+
+
+SELECT GETDATE()
