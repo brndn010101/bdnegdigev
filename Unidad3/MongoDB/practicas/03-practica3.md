@@ -13,7 +13,7 @@ db.empleados.updateOne({nombre: 'Imogene'}, {$set: {salario: 8000}})
 2. Cambiar "Belgium" por "Bélgica" en los empleados (debe haber dos).
 
 ```json
-db.empleados.updateOne({pais: 'Belgium'}, {$set: {pais: 'Bélgica'}})
+db.empleados.updateMany({pais: 'Belgium'}, {$set: {pais: 'Bélgica'}})
 ```
 
 4. Reemplazar el empleado Omar Gentry por el siguiente documento:
