@@ -225,7 +225,7 @@ db.libros.findOne({
     })
 ```
 
-## Operadores Lógicos ##
+# Operadores Lógicos #
 
 [Operadores Lógicos](https://www.mongodb.com/docs/manual/reference/operator/query-logical/)
 
@@ -415,7 +415,7 @@ db.collection.updateOne({filtro}, {operador:})
 
 ## Operador $set ##
 
-1. Modificsr un documento
+1. Modificar un documento
 
 ```json
 db.libros.updateOne({tutorial: 'Python para todos'}, {$set: {tutorial: 'Java para todos'}})
